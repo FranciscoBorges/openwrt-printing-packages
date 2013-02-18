@@ -27,7 +27,7 @@ define Package/cups-gutenprint
   SECTION:=net
   CATEGORY:=Network
   TITLE:=cups-gutenprint -- Gutenprint CUPS drivers
-  DEPENDS:=+cups +libiconv
+  DEPENDS:=+cups +libcupsimage +libiconv
   URL:=http://gimp-print.sourceforge.net/
 endef
 
