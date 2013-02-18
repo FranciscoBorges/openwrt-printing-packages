@@ -13,8 +13,6 @@ PKG_RELEASE:=1
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://downloads.ghostscript.com/public/$(PKG-SOURCE)
 PKG_MD5SUM:=153ddb0622cb155d2f600146f1e28d84
-#PKG_MD5SUM:=85a5e07a6b91937c157576293b381065 gnu xz
-#PKG_MD5SUM:=5ba894df85824661f500ec5e838ef6a5 gnu bz2
 
 PKG_BUILD_DEPENDS:=ghostscript/host
 PKG_INSTALL:=1
@@ -28,10 +26,8 @@ define Package/ghostscript
   SECTION:=net
   CATEGORY:=Network
   TITLE:=ghostscript
-  DEPENDS:=+cups +libtiff +lcms2 +zlib
+  DEPENDS:=+cups +libcupsimage +libtiff +lcms2 +zlib
 endef
-
-# URL:=http://gimp-print.sourceforge.net/
 
 define Package/ghostscript/description
 	Ghostscript, an interpreter for the PostScript language and for PDF.
@@ -44,7 +40,9 @@ define Build/Configure
 	--without-libidn \
 	--with-install-cups \
 	--with-system-libtiff \
-	)
+	--with-cups-serverbin="/usr/lib/cups" \
+	--with-cups-serverroot="/etc/cups" \
+	--with-cups-datadir="/usr/share/cups")
 endef
 
 define Build/Compile
