@@ -1,0 +1,22 @@
+diff -Naur ghostscript-9.05.orig/configure ghostscript-9.05/configure
+--- ghostscript-9.05.orig/configure	2012-02-13 16:22:33.000000000 -0500
++++ ghostscript-9.05/configure	2012-02-13 16:23:12.000000000 -0500
+@@ -8879,10 +8879,18 @@
+ $as_echo_n "checking for big endian... " >&6; }
+ 
+ if test "$cross_compiling" = yes; then :
++if [ -n "$ac_cv_c_bigendian" ]; then
++  if test $ac_cv_c_bigendian = yes ; then
++    LCMS_BIGENDIAN=1
++  else
++    LCMS_BIGENDIAN=0
++  fi
++else
+   { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+ $as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+ as_fn_error $? "cannot run test program while cross compiling
+ See \`config.log' for more details" "$LINENO" 5; }
++fi
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */

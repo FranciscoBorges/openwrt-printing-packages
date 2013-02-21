@@ -12,7 +12,10 @@ PKG_VERSION:=9.06
 PKG_RELEASE:=1
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://downloads.ghostscript.com/public/$(PKG-SOURCE)
+# 9.06
 PKG_MD5SUM:=153ddb0622cb155d2f600146f1e28d84
+# 9.05
+#PKG_MD5SUM:=8bcef1f33ddf8a4d12b2cf8da385c191
 
 PKG_BUILD_DEPENDS:=ghostscript/host
 PKG_INSTALL:=1
@@ -42,6 +45,7 @@ define Build/Configure
 	--without-libidn \
 	--without-x \
 	--without-jasper \
+	--without-jbig2dec  \
 	--with-install-cups \
 	--with-system-libtiff \
 	--with-cups-serverbin="/usr/lib/cups" \
