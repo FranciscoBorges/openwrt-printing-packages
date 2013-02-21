@@ -26,7 +26,9 @@ define Package/ghostscript
   SECTION:=net
   CATEGORY:=Network
   TITLE:=ghostscript
-  DEPENDS:=+cups +libcupsimage +libtiff +lcms2 +zlib
+  DEPENDS:=+cups +libcupsimage +libfreetype +libtiff +libpng +libexpat +lcms2 +zlib +ghostscript-fonts-std
+#  DEPENDS:=+cups +libcupsimage +libtiff +libpng +libexpat +lcms2 +zlib +ghostscript-gnu-gs-fonts +ghostscript-std-fonts
+  SUBMENU:=Printing
 endef
 
 define Package/ghostscript/description
@@ -34,10 +36,12 @@ define Package/ghostscript/description
 endef
 
 define Build/Configure
-	(cd $(PKG_BUILD_DIR) && $(RM) -r lcms tiff zlib)
+	(cd $(PKG_BUILD_DIR) && $(RM) -r expat jasper freetype lcms2 lcms libpng tiff zlib)
 	$(call Build/Configure/Default, \
 	--disable-gtk	\
 	--without-libidn \
+	--without-x \
+	--without-jasper \
 	--with-install-cups \
 	--with-system-libtiff \
 	--with-cups-serverbin="/usr/lib/cups" \
@@ -72,9 +76,16 @@ define Package/ghostscript/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
 	$(INSTALL_DIR) $(1)/usr/lib/cups/filter
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/cups/filter/* $(1)/usr/lib/cups/filter
+	$(INSTALL_DIR) $(1)/usr/share/cups/model
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/cups/model/* $(1)/usr/share/cups/model
 	$(INSTALL_DIR) $(1)/usr/share/ghostscript/$(PKG_VERSION)/lib
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/share/ghostscript/$(PKG_VERSION)/lib/* \
 		$(1)/usr/share/ghostscript/$(PKG_VERSION)/lib
+	$(CP) -r $(PKG_BUILD_DIR)/Resource $(1)/usr/share/ghostscript/$(PKG_VERSION)/
+	$(CP) -r $(PKG_BUILD_DIR)/iccprofiles $(1)/usr/share/ghostscript/$(PKG_VERSION)/
+	# $(INSTALL_DIR) $(1)/usr/share/ghostscript/$(PKG_VERSION)/examples/cjk
+	# $(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/share/ghostscript/$(PKG_VERSION)/examples/* \
+	# 	$(1)/usr/share/ghostscript/$(PKG_VERSION)/examples
 	$(INSTALL_DIR) $(1)/etc/cups
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/etc/cups/gstoraster.convs $(1)/etc/cups
 endef
