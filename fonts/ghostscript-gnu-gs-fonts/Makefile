@@ -7,10 +7,10 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=ghostscript-gnu-gs-std
+PKG_NAME:=ghostscript-gnu-gs-fonts-other
 PKG_VERSION:=6.0
 PKG_RELEASE:=1
-PKG_SOURCE:=gnu-gs-fonts-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=gnu-gs-fonts-other-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=@SF/gs-fonts
 PKG_MD5SUM:=33457d3f37de7ef03d2eea05a9e6aa4f
 
@@ -18,14 +18,14 @@ include $(INCLUDE_DIR)/package.mk
 
 PKG_UNPACK:=gzip -dc $(DL_DIR)/$(PKG_SOURCE) | $(TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
 
-define Package/ghostscript-gnu-gs-fonts
+define Package/ghostscript-gnu-gs-fonts-other
   SECTION:=fonts
   CATEGORY:=Network
-  TITLE:=ghostscript-gnu-gs-fonts
+  TITLE:=ghostscript-gnu-gs-fonts-other
   SUBMENU:=Printing
 endef
 
-define Package/ghostscript-gnu-gs-fonts/description
+define Package/ghostscript-gnu-gs-fonts-other/description
 	Ghostscript, standard fonts.
 endef
 
@@ -35,9 +35,9 @@ endef
 define Build/Compile
 endef
 
-define Package/ghostscript-gnu-gs-fonts/install
+define Package/ghostscript-gnu-gs-fonts-other/install
 	$(INSTALL_DIR) $(1)/usr/share/ghostscript
 	$(CP) $(PKG_BUILD_DIR)/fonts $(1)/usr/share/ghostscript
 endef
 
-$(eval $(call BuildPackage,ghostscript-gnu-gs-fonts))
+$(eval $(call BuildPackage,ghostscript-gnu-gs-fonts-other))
