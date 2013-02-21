@@ -15,7 +15,7 @@ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=@SF/gimp-print
 PKG_MD5SUM:=aefbec27b96dd404d9ac9811e17d58ce
 
-PKG_BUILD_DEPENDS:=cups-gutenprint/host cups libiconv
+PKG_BUILD_DEPENDS:=gutenprint-cups/host cups libiconv
 HOST_BUILD_DEPENDS:=libiconv/host
 PKG_INSTALL:=1
 
@@ -23,15 +23,17 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
-define Package/cups-gutenprint
+define Package/gutenprint-cups
   SECTION:=net
   CATEGORY:=Network
-  TITLE:=cups-gutenprint -- Gutenprint CUPS drivers
-  DEPENDS:=+cups +libcupsimage +libiconv
+  TITLE:=gutenprint-cups -- Gutenprint CUPS drivers
+  # perl is required by cups-genppdupdate
+  DEPENDS:=+cups +libcupsimage +libiconv +perl
   URL:=http://gimp-print.sourceforge.net/
+  SUBMENU:=Printing
 endef
 
-define Package/cups-gutenprint/description
+define Package/gutenprint-cups/description
 	Gutenprint CUPS drivers for a wide range of Canon, Epson, HP and
 	compatible printers.
 endef
@@ -64,15 +66,15 @@ define Build/Compile
 	$(call Build/Compile/Default)
 endef
 
-define Package/cups-gutenprint/install
+define Package/gutenprint-cups/install
 	$(INSTALL_DIR) $(1)/usr/sbin $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/* $(1)/usr/sbin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/cups-calibrate $(1)/usr/bin/
 
 	$(INSTALL_DIR) $(1)/usr/lib/cups/driver $(1)/usr/lib/cups/filter
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/cups/driver/gutenprint.* $(1)/usr/lib/cups/driver
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/cups/filter/* $(1)/usr/lib/cups/filter
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libgutenprint.so* $(1)/usr/lib
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/cups/filter/* $(1)/usr/lib/cups/filter
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/libgutenprint.so* $(1)/usr/lib
 	$(INSTALL_DIR) $(1)/usr/share/cups/mime
 	$(CP) $(PKG_INSTALL_DIR)/etc/cups/command.types $(1)/usr/share/cups/mime
 	$(INSTALL_DIR) $(1)/usr/share/gutenprint
@@ -87,4 +89,4 @@ define Host/Install
 endef
 
 $(eval $(call HostBuild))
-$(eval $(call BuildPackage,cups-gutenprint))
+$(eval $(call BuildPackage,gutenprint-cups))
