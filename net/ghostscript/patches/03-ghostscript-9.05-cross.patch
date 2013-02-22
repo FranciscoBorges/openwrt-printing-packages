@@ -139,9 +139,9 @@ diff -Naur ghostscript-9.05.orig/base/cross.mak ghostscript-9.05/base/cross.mak
 @@ -0,0 +1,5 @@
 +
 +cross_prepare:
-+	make obj/aux/echogs obj/aux/genconf obj/aux/genarch obj/aux/mkromfs_0 obj/aux/mkromfs CC=gcc CCAUX=gcc CFLAGS= FONTCONFIG_CFLAGS=-I/usr/include EXTRALIBS='-ldl -lm -lstdc++ -lfontconfig'
++	mkdir -p $(GLGEN)
 +	cp -f $(ARCH)-arch.h $(GLGEN)/arch.h
-+	touch $(GLGEN)/arch.h obj/aux/*
++	touch $(GLGEN)/arch.h
 diff -Naur ghostscript-9.05.orig/base/Makefile.in ghostscript-9.05/base/Makefile.in
 --- ghostscript-9.05.orig/base/Makefile.in	2012-02-13 13:07:44.000000000 -0500
 +++ ghostscript-9.05/base/Makefile.in	2012-02-13 13:08:44.000000000 -0500
