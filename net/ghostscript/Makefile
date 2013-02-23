@@ -12,10 +12,7 @@ PKG_VERSION:=9.06
 PKG_RELEASE:=1
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://downloads.ghostscript.com/public/$(PKG-SOURCE)
-# 9.06
 PKG_MD5SUM:=153ddb0622cb155d2f600146f1e28d84
-# 9.05
-#PKG_MD5SUM:=8bcef1f33ddf8a4d12b2cf8da385c191
 
 PKG_BUILD_DEPENDS:=ghostscript/host
 PKG_INSTALL:=1
@@ -65,7 +62,14 @@ endef
 # Host build should also use system's zlib
 define Host/Configure
 	(cd $(HOST_BUILD_DIR) && $(RM) -r zlib)
-	$(call Host/Configure/Default)
+	$(call Host/Configure/Default, \
+	--without-x \
+	--without-jasper \
+	--without-jbig2dec \
+	--without-pdftoraster \
+	--without-libpaper \
+	--disable-gtk	\
+	--without-libidn)
 endef
 
 # Patches cannot be applied to the host build
@@ -79,6 +83,16 @@ endef
 define Package/ghostscript/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
+	#--------------------------------------------------------------
+	# Unlike what
+	# http://ghostscript.com/doc/9.06/Use.htm#Finding_files states
+	# GS is /not/ taking the first dir of GS_LIB_DEFAULT (perhaps
+	# because it does not exist in my system?). The solution in
+	# place is to replace 'gs' by a script that sets GS_LIB
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/gs $(1)/usr/bin/gs.orig
+	$(RM) $(1)/usr/bin/gs
+	$(CP) ./files/gs $(1)/usr/bin/
+	#--------------------------------------------------------------
 	$(INSTALL_DIR) $(1)/usr/lib/cups/filter
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/cups/filter/* $(1)/usr/lib/cups/filter
 	$(INSTALL_DIR) $(1)/usr/share/cups/model
@@ -89,8 +103,8 @@ define Package/ghostscript/install
 	$(CP) -r $(PKG_BUILD_DIR)/Resource $(1)/usr/share/ghostscript/$(PKG_VERSION)/
 	$(CP) -r $(PKG_BUILD_DIR)/iccprofiles $(1)/usr/share/ghostscript/$(PKG_VERSION)/
 	# $(INSTALL_DIR) $(1)/usr/share/ghostscript/$(PKG_VERSION)/examples/cjk
-	# $(INSTALL_DATA) $(PKG_INSTALL_DIR)/usr/share/ghostscript/$(PKG_VERSION)/examples/* \
-	# 	$(1)/usr/share/ghostscript/$(PKG_VERSION)/examples
+	$(CP) -r $(PKG_INSTALL_DIR)/usr/share/ghostscript/$(PKG_VERSION)/examples \
+	 	$(1)/usr/share/ghostscript/$(PKG_VERSION)/examples
 	$(INSTALL_DIR) $(1)/etc/cups
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/etc/cups/gstoraster.convs $(1)/etc/cups
 endef

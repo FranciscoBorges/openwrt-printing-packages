@@ -1,0 +1,2 @@
+#!/bin/sh
+GS_LIB=/usr/share/ghostscript/9.06/Resource exec /usr/bin/gs.orig "$@"
