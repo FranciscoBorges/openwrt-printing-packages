@@ -25,6 +25,7 @@ define Package/cups-bjnp
   TITLE:=BJNP protocol backend for CUPS
   URL:=http://sourceforge.net/projects/cups-bjnp/
   DEPENDS:=cups
+  SUBMENU:=Printing
 endef
 
 define Package/cups-bjnp/description
