@@ -411,7 +411,8 @@ define Build/Configure
 		--disable-cdsassl \
 		--disable-ssl \
 		--disable-gssapi \
-		--disable-tiff, \
+		--disable-tiff \
+		--with-pdftops=/usr/bin/gs, \
 		UNAME="Linux" \
 		LIBS="$(TARGET_LDFLAGS) -lz -lpng -ljpeg" \
 	)
