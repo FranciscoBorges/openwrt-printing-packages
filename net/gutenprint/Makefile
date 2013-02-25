@@ -27,11 +27,21 @@ define Package/gutenprint-cups
   SECTION:=net
   CATEGORY:=Network
   TITLE:=gutenprint-cups -- Gutenprint CUPS drivers
-  # perl is required by cups-genppdupdate
-  DEPENDS:=+cups +libcupsimage +libiconv +perl
+  # XXX FIXME perl is required by cups-genppdupdate, but it needs more libs
+  DEPENDS:=+cups +libcupsimage +libiconv
   URL:=http://gimp-print.sourceforge.net/
   SUBMENU:=Printing
 endef
+
+# define Package/gutenprint-foomatic
+#   SECTION:=net
+#   CATEGORY:=Network
+#   TITLE:=gutenprint-foomatic -- Gutenprint Foomatic drivers
+#   # perl is required by cups-genppdupdate
+#   DEPENDS:=+ghostscript +libiconv
+#   URL:=http://gimp-print.sourceforge.net/
+#   SUBMENU:=Printing
+# endef
 
 define Package/gutenprint-cups/description
 	Gutenprint CUPS drivers for a wide range of Canon, Epson, HP and
@@ -68,7 +78,8 @@ endef
 
 define Package/gutenprint-cups/install
 	$(INSTALL_DIR) $(1)/usr/sbin $(1)/usr/bin
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/* $(1)/usr/sbin/
+	# XXX Do not install cups-genppdupdate, as it requires Perl + some perl libs
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/cups-genppd.[0-9]*.[0-9]* $(1)/usr/sbin/
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/cups-calibrate $(1)/usr/bin/
 
 	$(INSTALL_DIR) $(1)/usr/lib/cups/driver $(1)/usr/lib/cups/filter
