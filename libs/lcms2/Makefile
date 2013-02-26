@@ -23,7 +23,7 @@ define Package/lcms2
   SECTION:=libs
   CATEGORY:=Libraries
   TITLE:=Little CMS color engine
-  DEPENDS:=+libtiff +libjpeg
+  DEPENDS:=+libtiff +libjpeg-turbo +zlib
   URL:=http://www.littlecms.com/
   SUBMENU:=Printing
 endef
