@@ -35,5 +35,6 @@ Notably it has:
 ```
 src-git printing git://github.com/FranciscoBorges/openwrt-printing-packages.git
 ```
+- Notice that AFAICT when there are 2 packages with the same name and different versions, it seems to be a toss which one will get picked. Delete whichever duplicated packages from your feeds (e.g. ```cups```, ```cups-bjnp```).
 
-I've been testing these packages against Attitude Adjustment.
+- tested against Attitude Adjustment (because that is what I have installed...).
