@@ -24,7 +24,7 @@ define Package/openprinting-cups-filters
   SECTION:=Net
   CATEGORY:=Network
   TITLE:=OpenPrinting CUPS filters
-  DEPENDS:=+cups +fontconfig +libijs +libtiff +libjpeg-turbo +libpng +poppler
+  DEPENDS:=+cups +fontconfig +libijs +libtiff +libjpeg-turbo +libpng +poppler +qpdf
   URL:=http://www.openprinting.org
   SUBMENU:=Printing
 endef
