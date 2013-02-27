@@ -20,11 +20,13 @@ PKG_INSTALL:=1
 
 include $(INCLUDE_DIR)/package.mk
 
+EXTRA_CFLAGS+=-DHAVE_CPP_POPPLER_VERSION_H
+
 define Package/openprinting-cups-filters
   SECTION:=Net
   CATEGORY:=Network
   TITLE:=OpenPrinting CUPS filters
-  DEPENDS:=+cups +fontconfig +libijs +libtiff +libjpeg-turbo +libpng +poppler +qpdf
+  DEPENDS:=+cups +libcupsimage +fontconfig +libijs +libtiff +libjpeg-turbo +libpng +poppler +qpdf
   URL:=http://www.openprinting.org
   SUBMENU:=Printing
 endef
@@ -45,6 +47,7 @@ define Build/Configure
 	--disable-cdsassl \
 	--disable-ssl \
 	--disable-gssapi \
+	--disable-avahi \
 	)
 endef
 

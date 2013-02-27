@@ -37,8 +37,8 @@ CONFIGURE_ARGS+= \
 	--disable-gtk-test \
 	--disable-poppler-qt4 \
 	--disable-gtk-doc-html \
-	--disable-gtk-test \
 	--enable-gtk-doc-html=no \
+	--enable-poppler-cpp \
 	--enable-xpdf-headers \
 	--enable-zlib \
 	--enable-libjpeg \
@@ -52,8 +52,10 @@ define Package/poppler/install
 endef
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/include $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/include/cpp $(1)/usr/lib
 	$(CP) -r $(PKG_INSTALL_DIR)/usr/include/poppler $(1)/usr/include/
+	$(CP) -r $(PKG_BUILD_DIR)/cpp/poppler-version.h $(1)/usr/include/cpp
+	$(CP) -r $(PKG_BUILD_DIR)/cpp/poppler-global.h $(1)/usr/include/cpp
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib
 endef
 
