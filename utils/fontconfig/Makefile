@@ -36,12 +36,11 @@ endef
 CONFIGURE_ARGS+= --disable-docs
 
 define Package/fontconfig/install
-	$(INSTALL_DIR) $(1)/usr/bin $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/bin $(1)/usr/lib $(1)/usr/share/fontconfig/conf.avail
 	$(INSTALL_DIR) $(1)/etc/fonts/conf.d
 	$(CP) $(PKG_INSTALL_DIR)/etc/fonts/fonts.conf $(1)/etc/fonts
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib/
-	$(INSTALl_DIR) $(1)/usr/share/fontconfig/conf.avail
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/fontconfig/conf.avail/* $(1)/usr/share/fontconfig/conf.avail
 endef
 
