@@ -36,8 +36,8 @@ define Build/Compile
 endef
 
 define Package/ghostscript-fonts-std/install
-	$(INSTALL_DIR) $(1)/usr/share/ghostscript
-	$(CP) $(PKG_BUILD_DIR)/fonts $(1)/usr/share/ghostscript
+	$(INSTALL_DIR) $(1)/usr/share/fonts/ghostscript
+	$(CP) $(PKG_BUILD_DIR)/fonts $(1)/usr/share/fonts/ghostscript
 endef
 
 $(eval $(call BuildPackage,ghostscript-fonts-std))
