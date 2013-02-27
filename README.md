@@ -19,9 +19,10 @@ Notably it has:
 
 ### Missing / TODO
 
-- Package/compile OpenPrinting's cups-filters (which is a much improved fork of the CUPS cups-filters code which got dropped at CUPS 1.6), and its dependencies (e.g. poppler).
+- --Package/compile OpenPrinting's cups-filters (which is a much improved fork of the CUPS cups-filters code which got dropped at CUPS 1.6), and its dependencies (e.g. poppler).--
 - configure fontconfig;
 - make packages installing fonts work correctly with it
+- install Red Hat liberation fonts?
 - make CUPS play nice with Avahi by default
 - review installation of packages, as it is all somewhat a mess right now
 
