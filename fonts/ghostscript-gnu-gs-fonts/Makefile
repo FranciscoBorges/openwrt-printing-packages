@@ -26,7 +26,7 @@ define Package/ghostscript-gnu-gs-fonts-other
 endef
 
 define Package/ghostscript-gnu-gs-fonts-other/description
-	Ghostscript, standard fonts.
+	Ghostscript, the 'other' standard fonts.
 endef
 
 define Build/Configure
@@ -36,8 +36,8 @@ define Build/Compile
 endef
 
 define Package/ghostscript-gnu-gs-fonts-other/install
-	$(INSTALL_DIR) $(1)/usr/share/ghostscript
-	$(CP) $(PKG_BUILD_DIR)/fonts $(1)/usr/share/ghostscript
+	$(INSTALL_DIR) $(1)/usr/share/fonts/ghostscript
+	$(CP) $(PKG_BUILD_DIR)/fonts $(1)/usr/share/fonts/ghostscript
 endef
 
 $(eval $(call BuildPackage,ghostscript-gnu-gs-fonts-other))
