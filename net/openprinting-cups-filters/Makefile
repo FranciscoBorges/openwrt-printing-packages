@@ -1,6 +1,4 @@
 #
-# Copyright (C) 2007-2013 OpenWrt.org
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -52,9 +50,10 @@ define Build/Configure
 endef
 
 define Package/openprinting-cups-filters/install
-	$(INSTALL_DIR) $(1)/usr/bin $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/bin $(1)/usr/lib $(1)/usr/share/cups
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib/
+	$(CP) -r $(PKG_INSTALL_DIR)/usr/share/cups/* $(1)/usr/share/cups
 endef
 
 define Build/InstallDev

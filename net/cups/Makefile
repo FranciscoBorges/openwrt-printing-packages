@@ -434,6 +434,10 @@ define Package/cups/install
 	ln -sf /tmp $(1)/etc/cups/certs
 	rm -f $(1)/usr/bin/cups-config
 	$(INSTALL_DIR) $(1)/usr/lib/cups
+	### OpenPrinting cups-filters --------------------------------
+	rm -f $(PKG_INSTALL_DIR)/usr/lib/cups/backend/parallel
+	rm -f $(PKG_INSTALL_DIR)/usr/lib/cups/backend/serial
+	###-----------------------------------------------------------
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/cups/backend $(1)/usr/lib/cups
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/cups/cgi-bin $(1)/usr/lib/cups
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/cups/daemon $(1)/usr/lib/cups
@@ -444,12 +448,13 @@ define Package/cups/install
 		$(PKG_INSTALL_DIR)/usr/lib/cups/filter/gziptoany \
 		$(1)/usr/lib/cups/filter
 	$(INSTALL_DIR) $(1)/usr/share/cups
-	$(CP) $(PKG_INSTALL_DIR)/usr/share/cups/* $(1)/usr/share/cups
-	# $(INSTALL_DIR) $(1)/usr/share/cups/templates 
-	# $(CP) $(PKG_INSTALL_DIR)/usr/share/cups/templates/*.tmpl \
-	# 	$(1)/usr/share/cups/templates/
-	# $(INSTALL_DIR) $(1)/usr/share/cups/mime
-	# $(CP) $(PKG_INSTALL_DIR)/usr/share/cups/mime/* $(1)/usr/share/cups/mime/
+	#$(CP) $(PKG_INSTALL_DIR)/usr/share/cups/* $(1)/usr/share/cups
+	$(INSTALL_DIR) $(1)/usr/share/cups/templates 
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/cups/templates/*.tmpl \
+		$(1)/usr/share/cups/templates/
+	$(INSTALL_DIR) $(1)/usr/share/cups/mime
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/cups/mime/* $(1)/usr/share/cups/mime/
+	### Do not install any docs.
 	# $(INSTALL_DIR) $(1)/usr/share/doc/cups
 	# $(CP) $(PKG_INSTALL_DIR)/usr/share/doc/cups/index.html \
 	# 	$(1)/usr/share/doc/cups/
