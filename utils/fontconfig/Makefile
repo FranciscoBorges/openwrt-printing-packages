@@ -44,6 +44,11 @@ define Package/fontconfig/install
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/fontconfig/conf.avail/* $(1)/usr/share/fontconfig/conf.avail
 endef
 
+define Package/fontconfig/postinst
+#!/bin/sh
+/usr/bin/fc-cache --force --verbose
+endef
+
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/bin $(1)/usr/lib
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/

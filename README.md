@@ -4,6 +4,14 @@ This is a [package feed] aiming at complete printing support in OpenWrt.
 
 [package feed]: http://wiki.openwrt.org/doc/devel/feeds
 
+Caveat 1: this is *work in progress*
+
+Caveat 2: Ghostscript lacks proper cross-compilation support. I used a
+patch taken from [timesys.com]. If your architecture is not there, it
+just won't work for you.
+
+[timesys.com]: http://repository.timesys.com/buildsources/g/ghostscript/
+
 It adds new packages and upgrades some others.
 
 Notably it has:
@@ -16,6 +24,7 @@ Notably it has:
 - qpdf
 - libijs
 - lcms2
+- etc...
 
 ### Missing / TODO
 
@@ -25,8 +34,12 @@ Notably it has:
 - install Ubuntu fonts
 - make CUPS play nice with Avahi by default
 - review installation of packages, as it is all somewhat a mess right now
+- the font cache will likely get lost on a reboot.
 
 ### To use this feed,
+
+- set up your router to use [external storage] for its root file system.
+[external storage]: http://wiki.openwrt.org/doc/howto/extroot
 
 - set up a [cross-compilation environment]
 [cross-compilation environment]: http://wiki.openwrt.org/doc/devel/crosscompile
