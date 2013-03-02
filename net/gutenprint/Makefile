@@ -85,7 +85,7 @@ define Package/gutenprint-cups/install
 	$(INSTALL_DIR) $(1)/usr/lib/cups/driver $(1)/usr/lib/cups/filter
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/cups/driver/gutenprint.* $(1)/usr/lib/cups/driver
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/cups/filter/* $(1)/usr/lib/cups/filter
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/libgutenprint.so* $(1)/usr/lib
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/libgutenprint.* $(1)/usr/lib
 	$(INSTALL_DIR) $(1)/usr/share/cups/mime
 	$(CP) $(PKG_INSTALL_DIR)/etc/cups/command.types $(1)/usr/share/cups/mime
 	$(INSTALL_DIR) $(1)/usr/share/gutenprint
