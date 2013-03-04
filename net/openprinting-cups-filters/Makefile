@@ -67,8 +67,8 @@ endef
 
 define Package/preinst
 #!/bin/sh
-# Get rid of any files from CUPS 1.5.X cups-filters.
-# See OpenPrinting's cups-filters-X.X.X/INSTALL
+# Be on the safe side: get rid of any files from CUPS 1.5.X filters.
+# See OpenPrinting's cups-filters-1.0.X/INSTALL
 rm /usr/lib/cups/backend/serial
 rm /usr/lib/cups/backend/parallel
 rm /usr/lib/cups/filter/bannertops
@@ -84,6 +84,12 @@ rm /usr/share/cups/banners/*
 rm /usr/share/cups/data/testprint
 rm /usr/share/cups/data/psglyphs
 rm /usr/share/cups/fonts/*
+endef
+
+define Package/postinst
+#!/bin/sh
+/etc/init.d/cupsd stop
+/etc/init.d/cupsd start
 endef
 
 $(eval $(call BuildPackage,openprinting-cups-filters))
