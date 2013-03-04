@@ -424,6 +424,10 @@ define Build/Compile
 		DSTROOT="$(PKG_INSTALL_DIR)" \
 		STRIP="/bin/true" \
 		all install
+	# Comment out any mime.convs using CUPS' own filters. These
+	# are deprecated by OpenPrinting's cups-filters package. Perl
+	# command taken from cups-filters-1.0.X/INSTALL
+	perl -p -i -e 's:^(.*\s+(pdftops|texttops|imagetops|bannertops|imagetoraster)\s*)$$$$:#\1:' $(PKG_INSTALL_DIR)/usr/share/cups/mime/mime.convs
 endef
 
 define Package/cups/install
