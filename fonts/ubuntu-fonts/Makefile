@@ -16,8 +16,9 @@ include $(INCLUDE_DIR)/package.mk
 
 define Package/ubuntu-fonts
   SECTION:=fonts
-  CATEGORY:=Fonts
+  CATEGORY:=Network
   TITLE:=ubuntu-fonts
+  SUBMENU:=Printing
 endef
 
 define Package/ubuntu-fonts/description

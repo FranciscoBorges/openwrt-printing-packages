@@ -1,6 +1,4 @@
 #
-# Copyright (C) 2013 OpenWrt.org
-#
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
@@ -15,8 +13,6 @@ PKG_SOURCE_URL:=https://fedorahosted.org/releases/l/i/liberation-fonts/
 PKG_MD5SUM:=5c781723a0d9ed6188960defba8e91cf
 
 include $(INCLUDE_DIR)/package.mk
-
-#PKG_UNPACK:=gzip -dc $(DL_DIR)/$(PKG_SOURCE) | $(TAR) -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
 
 define Package/liberation-fonts
   SECTION:=fonts
