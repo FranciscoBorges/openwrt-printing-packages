@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2013 OpenWrt.org
+# Copyright (C) 2006-2013 OpenWrt.org
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -13,39 +13,63 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=@SF/$(PKG_NAME)
-PKG_MD5SUM:=20f148103e069093f53584ce5ba16581
+PKG_MD5SUM:=b93435488942486c8d0ca22e8f768034
 
-PKG_INSTALL:=1
+PKG_LICENSE:=FTL GPLv2 MIT ZLIB
+PKG_LICENSE_FILES:=docs/LICENSE.TXT docs/FTL.TXT docs/GPLv2.TXT src/bdf/README src/pcf/README src/gzip/zlib.h
 
+PKG_FIXUP:=autoreconf
+PKG_LIBTOOL_PATHS:=builds/unix
+
+include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/libfreetype
   SECTION:=libs
-  CATEGORY:=Utilities
-  TITLE:=Freetype, library to render TrueType fonts
-  URL:=http://freetype.org
-  SUBMENU:=Printing
+  CATEGORY:=Libraries
+  TITLE:=A free, high-quality and portable font engine
+  URL:=http://www.freetype.org/
+  DEPENDS:=+zlib +libbz2
 endef
 
 define Package/libfreetype/description
-	The FreeType2 package contains a library which allows applications to
-	properly render TrueType fonts.
+ The FreeType project is a team of volunteers who develop free,
+ portable and high-quality software solutions for digital typography.
+ They specifically target embedded systems and focus on bringing small,
+ efficient and ubiquitous products.
 endef
 
-CONFIGURE_ARGS+= --disable-docs
+TARGET_CFLAGS += $(FPIC)
 
-define Package/libfreetype/install
-	$(INSTALL_DIR) $(1)/usr/bin $(1)/usr/lib
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib/
+CONFIGURE_ARGS += \
+	--enable-shared \
+	--enable-static \
+
+define Build/Compile
+	$(MAKE) -C $(PKG_BUILD_DIR) DESTDIR="$(PKG_INSTALL_DIR)" all install
 endef
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/bin $(1)/usr/lib
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
-	$(INSTALL_DIR) $(1)/usr/include $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/include/* $(1)/usr/include/
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib
+	$(INSTALL_DIR) $(2)/bin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/freetype-config $(2)/bin/
+	$(INSTALL_DIR) $(1)/usr/include
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/freetype2 $(1)/usr/include/
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/ft2build.h $(1)/usr/include/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libfreetype.{a,so*} $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib/pkgconfig
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/pkgconfig/freetype2.pc $(1)/usr/lib/pkgconfig/
+
+	$(SED) \
+		's,^\(prefix\|exec_prefix\)=.*,\1="$(STAGING_DIR)/usr",g' \
+		 $(2)/bin/freetype-config
 endef
 
+
+define Package/libfreetype/install
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libfreetype.so.* $(1)/usr/lib/
+endef
+
+$(eval $(call HostBuild))
 $(eval $(call BuildPackage,libfreetype))
