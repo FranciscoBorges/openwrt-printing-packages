@@ -23,6 +23,7 @@ define Package/ghostscript-gnu-gs-fonts-other
   CATEGORY:=Network
   TITLE:=ghostscript-gnu-gs-fonts-other
   SUBMENU:=Printing
+  DEPENDS:=+fontconfig
 endef
 
 define Package/ghostscript-gnu-gs-fonts-other/description
@@ -38,6 +39,11 @@ endef
 define Package/ghostscript-gnu-gs-fonts-other/install
 	$(INSTALL_DIR) $(1)/usr/share/fonts/ghostscript
 	$(CP) $(PKG_BUILD_DIR)/fonts $(1)/usr/share/fonts/ghostscript
+endef
+
+define Package/ghostscript-gnu-gs-fonts-other/postinst
+#!/bin/sh
+/usr/bin/fc-cache --force --verbose
 endef
 
 $(eval $(call BuildPackage,ghostscript-gnu-gs-fonts-other))

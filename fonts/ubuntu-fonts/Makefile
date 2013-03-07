@@ -19,6 +19,7 @@ define Package/ubuntu-fonts
   CATEGORY:=Network
   TITLE:=ubuntu-fonts
   SUBMENU:=Printing
+  DEPENDS:= +fontconfig
 endef
 
 define Package/ubuntu-fonts/description
@@ -36,6 +37,11 @@ endef
 define Package/ubuntu-fonts/install
 	$(INSTALL_DIR) $(1)/usr/share/fonts/ubuntu
 	$(CP) $(PKG_BUILD_DIR)/*.ttf $(1)/usr/share/fonts/ubuntu
+endef
+
+define Package/ubuntu-fonts/postinst
+#!/bin/sh
+/usr/bin/fc-cache --force --verbose
 endef
 
 $(eval $(call BuildPackage,ubuntu-fonts))

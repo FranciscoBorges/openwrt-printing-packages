@@ -19,6 +19,7 @@ define Package/liberation-fonts
   CATEGORY:=Network
   TITLE:=liberation-fonts
   SUBMENU:=Printing
+  DEPENDS:= +fontconfig
 endef
 
 define Package/liberation-fonts/description
@@ -35,6 +36,11 @@ endef
 define Package/liberation-fonts/install
 	$(INSTALL_DIR) $(1)/usr/share/fonts/truetype/liberation
 	$(CP) $(PKG_BUILD_DIR)/*.ttf $(1)/usr/share/fonts/truetype/liberation
+endef
+
+define Package/liberation-fonts/postinst
+#!/bin/sh
+/usr/bin/fc-cache --force --verbose
 endef
 
 $(eval $(call BuildPackage,liberation-fonts))

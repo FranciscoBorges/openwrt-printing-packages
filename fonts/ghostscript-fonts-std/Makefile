@@ -21,6 +21,7 @@ define Package/ghostscript-fonts-std
   CATEGORY:=Network
   TITLE:=ghostscript-fonts-std
   SUBMENU:=Printing
+  DEPENDS:=+fontconfig
 endef
 
 define Package/ghostscript-fonts-std/description
@@ -36,6 +37,11 @@ endef
 define Package/ghostscript-fonts-std/install
 	$(INSTALL_DIR) $(1)/usr/share/fonts/ghostscript
 	$(CP) $(PKG_BUILD_DIR)/fonts $(1)/usr/share/fonts/ghostscript
+endef
+
+define Package/ghostscript-fonts-std/postinst
+#!/bin/sh
+/usr/bin/fc-cache --force --verbose
 endef
 
 $(eval $(call BuildPackage,ghostscript-fonts-std))
