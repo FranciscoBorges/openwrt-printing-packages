@@ -43,7 +43,7 @@ define Build/Configure
 	--without-jasper \
 	--without-jbig2dec  \
 	--with-install-cups \
-	--with-fontpath /usr/share/fonts/ghostscript/fonts:/usr/share/ghostscript/9.06/Resource/Font:/usr/share/fonts/default/ghostscript:/usr/share/fonts/default/TrueType:/usr/share/fonts/default/Type1:/usr/share/cups/fonts:/usr/share/fonts \
+	--with-fontpath /usr/share/fonts/ghostscript/fonts/:/usr/share/ghostscript/9.06/Resource/Font/:/usr/share/fonts/default/ghostscript/:/usr/share/fonts/default/TrueType/:/usr/share/fonts/default/Type1:/usr/share/cups/fonts/:/usr/share/fonts/:/usr/share/fonts/ubuntu/:/usr/share/fonts/truetype/liberation/ \
 	--with-system-libtiff \
 	--with-cups-serverbin="/usr/lib/cups" \
 	--with-cups-serverroot="/etc/cups" \
