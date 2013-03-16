@@ -33,6 +33,7 @@ src-git printing git://github.com/FranciscoBorges/openwrt-printing-packages.git
 - to compile everything in this feed:
 
 ```
+# ./scripts/feeds dirclean # this would do a full-clean
 ./scripts/feeds clean
 ./scripts/feeds update -a
 ./scripts/feeds uninstall -a
@@ -54,18 +55,19 @@ scp -r ./bin/$ARCH/packages root@openwrt.lan:/storage/printer/packages/
 src/gz printing file:/storage/printer/packages
 ```
 
+- see `opkg-install-printing-packages.sh` to see a suggestion of what to install.
+
 - tested against Attitude Adjustment (because that is what I have installed...).
+
+- use [AirPrint Generate] to make your printers visible to iOS devices through Avahi.
+
+[AirPrint Generate]: https://github.com/tjfontaine/airprint-generate
 
 ### Issues / Missing / TODO
 
-Caveat 1: this is *work in progress*
-
-Caveat 2: Ghostscript lacks proper cross-compilation support. I used a
+Caveat 1: Ghostscript lacks proper cross-compilation support. I used a
 patch taken from [timesys.com]. If your architecture is not there, it
 just won't work for you.
 
-- configure fontconfig;
-- make packages installing fonts work correctly with it
 - make CUPS play nice with Avahi by default (i.e. AirPrint does not work out of box)
-- review installation of packages, as it is all somewhat a mess right now
 - the font cache will likely get lost on a reboot.
