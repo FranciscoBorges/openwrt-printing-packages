@@ -30,18 +30,7 @@ Notably it has:
 src-git printing git://github.com/FranciscoBorges/openwrt-printing-packages.git
 ```
 
-- to compile everything in this feed:
-
-```
-# ./scripts/feeds dirclean # this would do a full-clean
-./scripts/feeds clean
-./scripts/feeds update -a
-./scripts/feeds uninstall -a
-./scripts/feeds install -a -p printing -d m
-make menuconfig # to select architecture etc, verify check what is being built
-make
-# go drink some coffee...
-```
+- to compile everything in this feed you should use the script `setup-buildsystem.sh`
 
 - copy compiled packages to your router
 
