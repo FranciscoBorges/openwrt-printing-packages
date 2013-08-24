@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=fontconfig
 PKG_VERSION:=2.10.91
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=http://fontconfig.org/release/
@@ -43,11 +43,29 @@ define Package/fontconfig/install
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/* $(1)/usr/bin/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/fontconfig/conf.avail/* $(1)/usr/share/fontconfig/conf.avail
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/fontconfig.init $(1)/etc/init.d/fontconfig
 endef
 
 define Package/fontconfig/postinst
 #!/bin/sh
-/usr/bin/fc-cache --force --verbose
+# check if we are on a real system
+if [ -z "$${IPKG_INSTROOT}" ]; then
+   echo "Enabling rc.d symlink for fontconfig cache rebuild"
+   /etc/init.d/fontconfig enable
+   /usr/bin/fc-cache --force --verbose
+fi
+exit 0
+endef
+
+define Package/fontconfig/prerm
+#!/bin/sh
+# check if we are on a real system
+if [ -z "$${IPKG_INSTROOT}" ]; then
+   echo "Removing rc.d symlink for fontconfig"
+   /etc/init.d/fontconfig disable
+fi
+exit 0
 endef
 
 define Build/InstallDev
