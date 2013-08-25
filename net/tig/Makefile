@@ -6,12 +6,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=tig
-PKG_VERSION:=1.1
+PKG_VERSION:=1.2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE:=tig-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://jonas.nitro.dk/tig/releases/
-PKG_MD5SUM:=adeb797a8320962eeb345a615257cbac
+PKG_MD5SUM:=9dec2966d3d51f7d8b5b8d4a4b8d93eb
 PKG_CAT:=zcat
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/tig-$(PKG_VERSION)
