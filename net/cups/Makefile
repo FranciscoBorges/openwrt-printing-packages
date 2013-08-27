@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups
-PKG_VERSION:=1.5.4
+PKG_VERSION:=1.6.3
 PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-source.tar.bz2
@@ -17,7 +17,7 @@ PKG_SOURCE_URL:= \
 	ftp://ftp.easysw.com/pub/cups/$(PKG_VERSION) \
 	ftp://ftp3.easysw.com/pub/cups/$(PKG_VERSION) \
 	http://www.cups.org/software/$(PKG_VERSION)
-PKG_MD5SUM:=de3006e5cf1ee78a9c6145ce62c4e982
+PKG_MD5SUM:=946a2d8ad1aec6beced312fce18543da
 
 TARGET_LDFLAGS+=-Wl,-rpath-link=$(STAGING_DIR)/usr/lib
 
@@ -32,7 +32,7 @@ define Package/cups
 $(call Package/cups/Default)
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+libcups +libcupsmime +libcupscgi +libcupsppdc +libusb-1.0
+  DEPENDS:=+libcups +libcupsmime +libcupscgi +libcupsppdc +libusb-1.0 +libavahi-dbus-support +libavahi-client +libdbus +openslp +avahi-autoipd
   TITLE:=Common UNIX Printing System (daemon)
 endef
 
@@ -78,7 +78,7 @@ endef
 # $(call Package/cups/Default)
 #   SECTION:=net
 #   CATEGORY:=Network
-#   DEPENDS:=+libcupsimage +libcupsdriver
+#   DEPENDS:=+libcupsimage
 #   TITLE:=Common UNIX Printing System - Filter
 # endef
 
@@ -102,7 +102,7 @@ define Package/libcups
 $(call Package/cups/Default)
   SECTION:=libs
   CATEGORY:=Libraries
-  DEPENDS:=+zlib +libpthread +libpng +libjpeg-turbo
+  DEPENDS:=+zlib +libpthread +libpng +libjpeg-turbo +libavahi-client +libavahi
   TITLE:=Common UNIX Printing System - Core library
 endef
 
@@ -120,18 +120,6 @@ endef
 
 define Package/libcupscgi/description
 	Common UNIX Printing System - CGI library
-endef
-
-define Package/libcupsdriver
-$(call Package/cups/Default)
-  SECTION:=libs
-  CATEGORY:=Libraries
-  DEPENDS:=+libcups
-  TITLE:=Common UNIX Printing System - Driver library
-endef
-
-define Package/libcupsdriver/description
-	Common UNIX Printing System - Driver library
 endef
 
 define Package/libcupsimage
@@ -394,19 +382,19 @@ define Build/Configure
 	$(call Build/Configure/Default, \
 		--with-cups-user="nobody" \
 		--with-cups-group="nogroup" \
-		--with-components="embedded" \
+		--with-local_protocols='dnssd' \
 		--without-perl \
 		--without-python \
 		--without-php \
 		--enable-shared \
 		--enable-image \
 		--enable-libusb \
-		--disable-dbus \
-		--disable-dnssd \
+		--enable-dbus \
+		--enable-avahi \
 		--disable-launchd \
 		--disable-ldap \
 		--disable-pam \
-		--disable-slp \
+		--enable-slp \
 		--disable-gnutls \
 		--disable-openssl \
 		--disable-cdsassl \
@@ -521,11 +509,6 @@ endef
 define Package/libcupscgi/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libcupscgi.so* $(1)/usr/lib/
-endef
-
-define Package/libcupsdriver/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libcupsdriver.so* $(1)/usr/lib/
 endef
 
 define Package/libcupsimage/install
@@ -685,7 +668,6 @@ endef
 $(eval $(call BuildPackage,cups))
 $(eval $(call BuildPackage,libcups))
 $(eval $(call BuildPackage,libcupscgi))
-$(eval $(call BuildPackage,libcupsdriver))
 $(eval $(call BuildPackage,libcupsimage))
 $(eval $(call BuildPackage,libcupsmime))
 $(eval $(call BuildPackage,libcupsppdc))

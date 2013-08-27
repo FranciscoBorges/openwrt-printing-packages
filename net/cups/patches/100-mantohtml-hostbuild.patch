@@ -1,0 +1,12 @@
+diff -Naur cups-1.6.2.bak/man/Makefile cups-1.6.2/man/Makefile
+--- cups-1.6.2.bak/man/Makefile	2012-11-26 19:26:01.000000000 +0100
++++ cups-1.6.2/man/Makefile	2013-05-20 21:50:06.973744106 +0200
+@@ -233,7 +233,7 @@
+ 	done
+ 
+ mantohtml:	mantohtml.o
+-	$(CC) $(ARCHFLAGS) $(LDFLAGS) -o $@ mantohtml.o
++	gcc -I/usr/include -I../ -L/usr/lib mantohtml.c -o mantohtml
+ 
+ 
+ #
