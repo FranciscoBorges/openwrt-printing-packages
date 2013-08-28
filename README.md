@@ -48,9 +48,7 @@ src/gz printing file:/storage/printer/packages
 
 - tested against Attitude Adjustment (because that is what I have installed...).
 
-- use [AirPrint Generate] to make your printers visible to iOS devices through Avahi.
-
-[AirPrint Generate]: https://github.com/tjfontaine/airprint-generate
+- Avahi is notified of any printers added to Cups, so these will appear as Air Printer's in iOS devices.
 
 ### Issues / Missing / TODO
 
@@ -58,5 +56,4 @@ Caveat 1: Ghostscript lacks proper cross-compilation support. I used a
 patch taken from [timesys.com]. If your architecture is not there, it
 just won't work for you.
 
-- make CUPS play nice with Avahi by default (i.e. AirPrint does not work out of box)
 - the font cache will likely get lost on a reboot.

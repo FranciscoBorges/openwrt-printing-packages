@@ -32,7 +32,7 @@ define Package/cups
 $(call Package/cups/Default)
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+libcups +libcupsmime +libcupscgi +libcupsppdc +libusb-1.0 +libavahi-dbus-support +libavahi-client +libdbus +openslp +avahi-autoipd
+  DEPENDS:=+libcups +libcupsmime +libcupscgi +libcupsppdc +libusb-1.0 +libavahi-dbus-support +libavahi-client +libdbus +openslp +avahi-autoipd +avahi-dnsconfd
   TITLE:=Common UNIX Printing System (daemon)
 endef
 
@@ -382,7 +382,9 @@ define Build/Configure
 	$(call Build/Configure/Default, \
 		--with-cups-user="nobody" \
 		--with-cups-group="nogroup" \
+		--with-system-groups="root" \
 		--with-local_protocols='dnssd' \
+		--enable-default-shared \
 		--without-perl \
 		--without-python \
 		--without-php \
