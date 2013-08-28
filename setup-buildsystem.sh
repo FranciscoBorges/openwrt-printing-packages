@@ -1,3 +1,4 @@
+#! /bin/sh
 # execute this from your AA cross-compilation directory
 
 #---------------------------------------------------------------
@@ -22,5 +23,6 @@ make defconfig
 # You should select the correct target architecture here
 make menuconfig
 
+echo "\n\n"
 echo "Assuming you selected the right architecture, you should be all set"
 echo "Issue 'make' and go drink some coffee as it takes a while..."

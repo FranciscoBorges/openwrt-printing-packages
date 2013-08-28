@@ -30,7 +30,7 @@ Notably it has:
 src-git printing git://github.com/FranciscoBorges/openwrt-printing-packages.git
 ```
 
-- to compile everything in this feed you should use the script `setup-buildsystem.sh`
+- to compile everything in this feed you should use the script `setup-buildsystem.sh` or some variation of those commands.
 
 - copy compiled packages to your router
 
@@ -38,7 +38,7 @@ src-git printing git://github.com/FranciscoBorges/openwrt-printing-packages.git
 scp -r ./bin/$ARCH/packages root@openwrt.lan:/storage/printer/packages/
 ```
 
-- add local package source to the opkg configuration `/etc/opkg/conf` with
+- add local package source to the opkg configuration `/etc/opkg.conf` with
 
 ```
 src/gz printing file:/storage/printer/packages
