@@ -32,7 +32,7 @@ src-git printing git://github.com/FranciscoBorges/openwrt-printing-packages.git
 
 - to compile everything in this feed you should use the script `setup-buildsystem.sh` or some variation of those commands.
 
-- copy compiled packages to your router
+- copy compiled packages to your router (copy the whole directory as you need the files used to index the packages)
 
 ```
 scp -r ./bin/$ARCH/packages root@openwrt.lan:/storage/printer/packages/
@@ -52,8 +52,12 @@ src/gz printing file:/storage/printer/packages
 
 ### Issues / Missing / TODO
 
-Caveat 1: Ghostscript lacks proper cross-compilation support. I used a
-patch taken from [timesys.com]. If your architecture is not there, it
-just won't work for you.
+Caveat: Ghostscript lacks proper cross-compilation support. I used a
+patch taken from [timesys.com]. If your architecture is not there,
+compiling it just won't work for you.
 
-- the font cache will likely get lost on a reboot.
+The alternative for those who can't compile Ghostscript is to use a
+different PDF backend, in this case Poppler. For instructions of how
+to do this open the tar-ball of the `cups-filters-*.tar.bz2` and check
+the section *1. Selection of the renderer: Ghostscript, Poppler, or
+Adobe Reader* of the `README`.
