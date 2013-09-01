@@ -16,6 +16,7 @@ make dirclean
 ./scripts/feeds uninstall -a
 
 # Mark all packages from 'printing' to be installed as 'm'
+./scripts/feeds install bzip2
 ./scripts/feeds install -a -p printing -d m
 
 make defconfig
