@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=poppler
-PKG_VERSION:=0.22.1
+PKG_VERSION:=0.24.1
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://poppler.freedesktop.org/
-PKG_MD5SUM:=50c259fdda538c1ba94b62aa25f7ec87
+PKG_MD5SUM:=b11cc0408b4ad3809fa455d7b3d5ade9
 
 PKG_INSTALL:=1
 
@@ -36,6 +36,7 @@ CONFIGURE_ARGS+= \
 	--without-x \
 	--disable-gtk-test \
 	--disable-poppler-qt4 \
+	--disable-poppler-qt5 \
 	--disable-gtk-doc-html \
 	--enable-gtk-doc-html=no \
 	--enable-poppler-cpp \
@@ -43,6 +44,7 @@ CONFIGURE_ARGS+= \
 	--enable-zlib \
 	--enable-libjpeg \
 	--enable-cms=lcms2 \
+	--disable-poppler-cpp \
 	--with-font-configuration=fontconfig
 
 define Package/poppler/install
