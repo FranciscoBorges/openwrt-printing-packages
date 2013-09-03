@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openprinting-cups-filters
 PKG_VERSION:=1.0.37
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=cups-filters-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://www.openprinting.org/download/cups-filters/
@@ -24,7 +24,7 @@ define Package/openprinting-cups-filters
   SECTION:=Net
   CATEGORY:=Network
   TITLE:=OpenPrinting CUPS filters
-  DEPENDS:=+cups +libcupsimage +fontconfig +libijs +libtiff +libjpeg-turbo +libpng +poppler +qpdf +glib2
+  DEPENDS:=+cups +libcupsimage +fontconfig +libijs +libtiff +libjpeg +libpng +poppler +qpdf +glib2
   URL:=http://www.openprinting.org
   SUBMENU:=Printing
 endef

@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups
 PKG_VERSION:=1.6.3
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-source.tar.bz2
 PKG_SOURCE_URL:= \
@@ -102,7 +102,7 @@ define Package/libcups
 $(call Package/cups/Default)
   SECTION:=libs
   CATEGORY:=Libraries
-  DEPENDS:=+zlib +libpthread +libpng +libjpeg-turbo +libavahi-client +libavahi
+  DEPENDS:=+zlib +libpthread +libpng +libjpeg +libavahi-client +libavahi
   TITLE:=Common UNIX Printing System - Core library
 endef
 
@@ -126,7 +126,7 @@ define Package/libcupsimage
 $(call Package/cups/Default)
   SECTION:=libs
   CATEGORY:=Libraries
-  DEPENDS:=+libcups +libpng +libjpeg-turbo
+  DEPENDS:=+libcups
   TITLE:=Common UNIX Printing System - Image library
 endef
 

@@ -23,7 +23,7 @@ define Package/poppler
   SECTION:=utils
   CATEGORY:=Utilities
   TITLE:=Poppler PDF rendering library
-  DEPENDS:=+libpng +libtiff +libjpeg-turbo +zlib +lcms2 +fontconfig +libpthread +libfreetype +libstdcpp
+  DEPENDS:=+libpng +libtiff +libjpeg +zlib +lcms2 +fontconfig +libpthread +libfreetype +libstdcpp
   URL:=http://poppler.freedesktop.org/
   SUBMENU:=Printing
 endef
