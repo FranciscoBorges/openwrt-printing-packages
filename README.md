@@ -4,11 +4,12 @@ This is a [package feed] aiming at providing a complete printing stack
 for OpenWrt.
 
 Notably it has:
-- Ghostscript
-- Gutenprint (CUPS)
-- OpenPrinting's cups-filters
-- fontconfig
-- other packages to make sure the ones above work...
+- Ghostscript 9.06
+- Gutenprint 5.2.9
+- Cups 1.6.3
+- OpenPrinting's cups-filters 1.0.37
+- poppler 0.24.1
+- many other packages to make sure the ones above work...
 
 [package feed]: http://wiki.openwrt.org/doc/devel/feeds
 
@@ -46,9 +47,9 @@ src/gz printing file:/storage/printer/packages
 
 - see `opkg-install-printing-packages.sh` to see a suggestion of what to install.
 
-- tested against Attitude Adjustment (because that is what I have installed...).
+- tested against *Attitude Adjustment* (because that is what I have installed...).
 
-- Avahi is notified of any printers added to Cups, so these will appear as Air Printer's in iOS devices.
+- Avahi is notified of printers added to Cups, and these will appear as *Air Printer*'s in iOS devices.
 
 ### Issues / Missing / TODO
 
