@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ghostscript
 PKG_VERSION:=9.06
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://downloads.ghostscript.com/public/$(PKG-SOURCE)
 PKG_MD5SUM:=153ddb0622cb155d2f600146f1e28d84
@@ -93,8 +93,8 @@ define Package/ghostscript/install
 	$(RM) $(1)/usr/bin/gs
 	$(CP) ./files/gs $(1)/usr/bin/
 	#--------------------------------------------------------------
-	$(INSTALL_DIR) $(1)/usr/lib/cups/filter
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/cups/filter/* $(1)/usr/lib/cups/filter
+	#	$(INSTALL_DIR) $(1)/usr/lib/cups/filter
+	#	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/lib/cups/filter/* $(1)/usr/lib/cups/filter
 	$(INSTALL_DIR) $(1)/usr/share/cups/model
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/cups/model/* $(1)/usr/share/cups/model
 	$(INSTALL_DIR) $(1)/usr/share/ghostscript/$(PKG_VERSION)/lib
