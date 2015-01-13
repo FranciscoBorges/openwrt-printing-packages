@@ -469,7 +469,8 @@ define Package/cups/install
 	$(INSTALL_BIN) \
 		$(PKG_INSTALL_DIR)/usr/sbin/{cupsctl,cupsd} \
 		$(1)/usr/sbin/
-	chmod 700 $(PKG_INSTALL_DIR)/usr/lib/cups/backend/usb
+	# needed for cups to find usb printers per http://wiki.openwrt.org/doc/howto/cups.server
+	chmod 700 $(1)/usr/lib/cups/backend/usb
 endef
 
 define Package/cups-bsd/install
