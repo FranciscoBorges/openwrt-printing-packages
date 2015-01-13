@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cups
 PKG_VERSION:=1.6.3
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-source.tar.bz2
 PKG_SOURCE_URL:= \
@@ -450,13 +450,16 @@ define Package/cups/install
 	$(INSTALL_DIR) $(1)/usr/share/cups/mime
 	$(CP) $(PKG_INSTALL_DIR)/usr/share/cups/mime/* $(1)/usr/share/cups/mime/
 	### Do not install any docs.
-	# $(INSTALL_DIR) $(1)/usr/share/doc/cups
-	# $(CP) $(PKG_INSTALL_DIR)/usr/share/doc/cups/index.html \
-	# 	$(1)/usr/share/doc/cups/
-	# $(CP) $(PKG_INSTALL_DIR)/usr/share/doc/cups/*.css \
-	# 	$(1)/usr/share/doc/cups/
-	# $(CP) $(PKG_INSTALL_DIR)/usr/share/doc/cups/images \
-	# 	$(1)/usr/share/doc/cups/
+	### Do install docs: cups web interface relies on them
+	$(INSTALL_DIR) $(1)/usr/share/doc/cups
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/doc/cups/*.*html \
+		$(1)/usr/share/doc/cups/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/doc/cups/*.css \
+		$(1)/usr/share/doc/cups/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/doc/cups/*.txt \
+		$(1)/usr/share/doc/cups/
+	$(CP) $(PKG_INSTALL_DIR)/usr/share/doc/cups/images \
+		$(1)/usr/share/doc/cups/
 	$(INSTALL_DIR) $(1)/usr/sbin
 	# overwrite default config with our own
 	$(CP) ./files/etc/cups/* $(1)/etc/cups/
@@ -466,6 +469,7 @@ define Package/cups/install
 	$(INSTALL_BIN) \
 		$(PKG_INSTALL_DIR)/usr/sbin/{cupsctl,cupsd} \
 		$(1)/usr/sbin/
+	chmod 700 $(PKG_INSTALL_DIR)/usr/lib/cups/backend/usb
 endef
 
 define Package/cups-bsd/install
