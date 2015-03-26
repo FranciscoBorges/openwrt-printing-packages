@@ -11,7 +11,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=tig-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://jonas.nitro.dk/tig/releases/
-PKG_MD5SUM:=9dec2966d3d51f7d8b5b8d4a4b8d93eb
+PKG_MD5SUM:=d5c1dd1d829f8e515f59c96a5d419323
 PKG_CAT:=zcat
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/tig-$(PKG_VERSION)
