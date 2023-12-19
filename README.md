@@ -1,5 +1,7 @@
 # Printing packages for OpenWrt
 
+# This project is ARCHIVED!
+
 This is a [package feed] aiming at providing a complete printing stack
 for OpenWrt.
 
